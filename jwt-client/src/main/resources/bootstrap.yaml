@@ -1,0 +1,23 @@
+server:
+    port: 2222
+spring:
+    application:
+        name: jwt-client
+    cloud:
+        nacos:
+            discovery:
+                # 指定nacos server的地址
+                server-addr: 127.0.0.1:8848
+            config:
+                server-addr: 127.0.0.1:8848
+# actuator相关配置
+management:
+    endpoints:
+        web:
+            exposure:
+                # 暴露所有监控端点
+                include: '*'
+    endpoint:
+        health:
+            # 总是显示健康检测详情
+            show-details: always

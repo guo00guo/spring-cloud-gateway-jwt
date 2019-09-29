@@ -11,5 +11,4 @@ public class HelloController {
     public String hello(@CurrentUser String userName){
         return "Hello," + userName;
     }
-
 }

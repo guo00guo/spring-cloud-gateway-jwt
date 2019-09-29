@@ -14,6 +14,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -50,12 +51,15 @@ public class AuthFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String url = exchange.getRequest().getURI().getPath();
+
         //跳过不需要验证的路径
         if(Arrays.asList(skipAuthUrls).contains(url)){
             return chain.filter(exchange);
         }
         //从请求头中取出token
         String token = exchange.getRequest().getHeaders().getFirst("Authorization");
+        HttpHeaders headers = exchange.getRequest().getHeaders();
+
         //未携带token或token在黑名单内
         if (token == null ||
                 token.isEmpty() ||

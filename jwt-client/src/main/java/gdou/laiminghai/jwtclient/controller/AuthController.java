@@ -2,7 +2,6 @@ package gdou.laiminghai.jwtclient.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -49,8 +48,8 @@ public class AuthController {
                                     @RequestParam String password){
         Map<String,Object> resultMap = new HashMap<>();
         //账号密码校验
-        if(StringUtils.equals(userName, "admin")&&
-                StringUtils.equals(password, "admin")){
+        if(equals(userName, "admin")&&
+                equals(password, "admin")){
 
             //生成JWT
             String token = buildJWT(userName);
@@ -88,7 +87,7 @@ public class AuthController {
         String refreshTokenKey = String.format(jwtRefreshTokenKeyFormat, refreshToken);
         String userName = (String)stringRedisTemplate.opsForHash().get(refreshTokenKey,
                 "userName");
-        if(StringUtils.isBlank(userName)){
+        if(isBlank(userName)){
             resultMap.put("code", "10001");
             resultMap.put("msg", "refreshToken过期");
             return resultMap;
@@ -118,4 +117,20 @@ public class AuthController {
         return token;
     }
 
+    public static boolean isBlank(CharSequence cs)
+    {
+        int strLen;
+
+        if ((cs == null) || ((strLen = cs.length()) == 0))
+            return true;
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean equals(String str1, String str2) {
+        return str1 == null ? str2 == null : str1.equals(str2);
+    }
 }
