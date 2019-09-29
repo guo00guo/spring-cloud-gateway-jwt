@@ -12,8 +12,8 @@ spring:
                 server-addr: 127.0.0.1:8848
         gateway:
             routes:
-                - id: spring-cloud-server-demo  # 路由的唯一标识，这种形式下通常是微服务名称
-                  uri: lb://spring-cloud-server-demo  # lb代表从注册中心获取服务
+                - id: spring-cloud-server-one-demo  # 路由的唯一标识，这种形式下通常是微服务名称
+                  uri: lb://spring-cloud-server-one-demo  # lb代表从注册中心获取服务
                   predicates:
                       # 使用通配符匹配
                       - Path=/api/exam/analyse/**
