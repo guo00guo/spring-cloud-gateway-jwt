@@ -41,13 +41,14 @@ http://localhost:8848/nacos/index.html  用户名密码：nacos
 
 ### 用postman访问：
 
-http://localhost:2222/auth?userName=admin&password=admin
+post访问：http://localhost:2222/auth
+参数：userName：admin   password：admin
 
 获取token，使用token去访问微服务中的接口，gateway会检测进行token鉴权，正确才会跳转路由，访问微服务。
 
 将token加入postman中Headers加入
 
-Authorization:token(如eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJNSU5HIiwiZXhwIjoxNTY5NzUwNzg1LCJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNTY5NzUwNzI1fQ.ucCs3P8djRO9FtmKmlYhA5QVukwNj44dQFZwObCCLEo)
+Authorization:token
 
 http://localhost:8888/route/exam/analyse/student/test?caseId=2001
 
